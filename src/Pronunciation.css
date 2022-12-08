@@ -1,0 +1,23 @@
+.Pronunciation {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.Pronunciation i {
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.Pronunciation .inactive {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.Pronunciation .active:hover {
+  cursor: pointer;
+  color: brown;
+}
+
+.Pronunciation .pronunciation-text {
+  font-size: 16px;
+}

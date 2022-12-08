@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import requestWordData from "./apiWordData";
+import Pronunciation from "./Pronunciation";
+import Meanings from "./Meanings";
 
 function Dictionary(props) {
   const [keyword, setKeyword] = useState(props.default);
   const [results, setResults] = useState(null);
 
   function handleDictionaryResponse(response) {
-    console.log(response.data[0]);
     setResults(response.data[0]);
   }
 
@@ -40,16 +41,24 @@ function Dictionary(props) {
     return (
       <div className="Dictionary">
         <div>{searchForm}</div>
+
         <section>
-          {results.word}
-          <br />
-          {results.phonetics[0].text}
-          <br />
-          {results.phonetics[0].audio}
-          <br />
-          {results.meanings[0].partOfSpeech}
-          <br />
-          {results.meanings[0].definitions[0].definition}
+          <h3 className="text-capitalize">{results.word}</h3>
+          {results.phonetics
+            .filter((pronunciation) => pronunciation.text)
+            .map((pronunciation, index) => (
+              <div key={index}>
+                <Pronunciation pronunciation={pronunciation} />
+              </div>
+            ))}
+        </section>
+
+        <section>
+          {results.meanings.map((meanings, index) => (
+            <div key={index}>
+              <Meanings meanings={meanings} />
+            </div>
+          ))}
         </section>
       </div>
     );
