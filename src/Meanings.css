@@ -3,5 +3,22 @@
   margin-bottom: 15px;
 }
 
+.Meanings h6 {
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
 .Meanings .definition {
+  font-size: 16px;
+}
+
+.Meanings .index-number {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.Meanings .definition .example {
+  color: var(--secondary-color);
+  font-family: var(--secondary-font-family);
+  font-style: italic;
 }

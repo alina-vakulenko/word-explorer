@@ -1,4 +1,5 @@
 import React from "react";
+import Synonyms from "./Synonyms";
 import "./Meanings.css";
 
 function Meanings(props) {
@@ -20,10 +21,12 @@ function Meanings(props) {
             <div className="definition">
               <span className="index-number">{index + 1}.</span>{" "}
               {data.definition}
+              <div className="example">{data.example}</div>
             </div>
           </div>
         );
       })}
+      <Synonyms synonyms={props.meanings.synonyms} />
     </div>
   );
 }
