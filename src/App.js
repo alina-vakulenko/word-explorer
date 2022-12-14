@@ -9,7 +9,7 @@ function App() {
           <h1>Word Explorer</h1>
         </header>
         <main className="main-section">
-          <Dictionary default="blackout" />
+          <Dictionary default="wonder" />
         </main>
         <footer>
           <a href="/" target="_blank" rel="noopener norefferrer" title="GitHub">

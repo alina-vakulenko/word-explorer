@@ -1,5 +1,6 @@
 import React from "react";
 import Synonyms from "./Synonyms";
+import Example from "./Example";
 import "./Meanings.css";
 
 function Meanings(props) {
@@ -9,11 +10,8 @@ function Meanings(props) {
 
   return (
     <div className="Meanings">
-      <h6>
-        <i className="fa-solid fa-bookmark"></i>{" "}
-        <strong className="text-capitalize">
-          {props.meanings.partOfSpeech}
-        </strong>
+      <h6 className="part-of-speech">
+        <i className="fa-solid fa-bookmark"></i> {props.meanings.partOfSpeech}
       </h6>
       {props.meanings.definitions.map((data, index) => {
         return (
@@ -21,7 +19,7 @@ function Meanings(props) {
             <div className="definition">
               <span className="index-number">{index + 1}.</span>{" "}
               {data.definition}
-              <div className="example">{data.example}</div>
+              <Example example={data.example} />
             </div>
           </div>
         );

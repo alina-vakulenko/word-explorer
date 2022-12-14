@@ -2,22 +2,33 @@ import React, { useState } from "react";
 import requestWordData from "./apiWordData";
 import Pronunciation from "./Pronunciation";
 import Meanings from "./Meanings";
+import Photos from "./Photos";
+import requestPhotos from "./requestPhotos";
 
 function Dictionary(props) {
   const [keyword, setKeyword] = useState(props.default);
   const [results, setResults] = useState(null);
+  const [photos, setPhotos] = useState(null);
 
   function handleDictionaryResponse(response) {
     setResults(response.data[0]);
   }
+  function handlePexelsResponse(response) {
+    setPhotos(response.data.photos);
+  }
 
-  function search() {
+  function searchInDictionary() {
     requestWordData(keyword, handleDictionaryResponse);
+  }
+
+  function searchPhotos() {
+    requestPhotos(keyword, handlePexelsResponse);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    search();
+    searchInDictionary();
+    searchPhotos();
   }
 
   function handleWord(event) {
@@ -33,7 +44,7 @@ function Dictionary(props) {
         autoFocus="on"
         onChange={handleWord}
       ></input>
-      <input type="submit" value="Search" className="btn search-button"></input>
+      <button className="btn search-button">Search</button>
     </form>
   );
 
@@ -43,7 +54,7 @@ function Dictionary(props) {
         <div>{searchForm}</div>
 
         <section>
-          <h3 className="text-capitalize">{results.word}</h3>
+          <h3 className="keyword">• {results.word} •</h3>
           {results.phonetics
             .filter((pronunciation) => pronunciation.text)
             .map((pronunciation, index) => (
@@ -51,6 +62,9 @@ function Dictionary(props) {
                 <Pronunciation pronunciation={pronunciation} />
               </div>
             ))}
+        </section>
+        <section>
+          <Photos photos={photos} />
         </section>
 
         <section>
@@ -63,7 +77,8 @@ function Dictionary(props) {
       </div>
     );
   } else {
-    search();
+    searchInDictionary();
+    searchPhotos();
     return null;
   }
 }

@@ -1,20 +1,85 @@
 .App {
   font-size: 12px;
   font-family: var(--main-font-family);
+  color: var(--primary-color);
 }
-
 .App header {
+  max-width: 800px;
+  margin: 30px auto 0 auto;
+  border: 2px solid var(--background-color);
+  border-radius: 5px;
+}
+.App header h1 {
   text-align: center;
-  margin: 30px;
+  line-height: 1.5;
+  margin: 0;
+  font-family: var(--highlight-font-family);
+  font-size: 48px;
+  color: var(--secondary-color);
 }
 .App form {
-  display: flex;
   max-width: 500px;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  margin: 60px auto 30px auto;
+}
+.App form input {
+  border: 1px solid var(--background-color);
+  padding: 10px 25px;
+}
+.App form input:focus {
+  color: var(--primary-color);
+  border: 1px solid var(--background-color);
 }
 
 .App form .search-button {
-  margin-left: 20px;
+  padding: 10px 25px;
+  margin-left: 30px;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid var(--background-color);
+  border-radius: 50px;
+  background-color: var(--highlight-color);
+  color: var(--secondary-color);
+  font-size: 16px;
+  transition: all 250ms ease-in-out;
+  box-shadow: 4px 4px 10px rgba(66, 84, 96, 0.3);
+}
+
+.App form .search-button:hover {
+  background: var(--secondary-color);
+  box-shadow: 4px 4px 10px rgba(66, 84, 96, 0.3);
+  color: var(--highlight-color);
+  border: 1px solid var(--secondary-color);
+  transition-duration: 0.1s;
+}
+
+.App form .search-button:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 30px var(--secondary-color);
+}
+
+.App form .search-button:active:after {
+  box-shadow: 0 0 0 0 var(--secondary-color);
+  position: absolute;
+  border-radius: 50px;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.App form .search-button:active {
+  top: 1px;
 }
 
 .App .main-section {
@@ -34,13 +99,20 @@
   text-align: center;
   margin: 20px;
   font-family: var(--secondary-font-family);
+  color: var(--secondary-color);
 }
 
 .App a {
-  color: black;
+  color: var(--secondary-color);
+  font-weight: 600;
 }
 .App a i {
   margin: 8px;
   font-size: 16px;
-  color: black;
+  color: var(--secondary-color);
+}
+
+.Dictionary .keyword {
+  text-transform: capitalize;
+  color: var(--highlight-color);
 }

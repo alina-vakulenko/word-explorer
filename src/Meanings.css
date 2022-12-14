@@ -2,10 +2,12 @@
   text-align: start;
   margin-bottom: 15px;
 }
-
-.Meanings h6 {
-  margin-bottom: 20px;
+.Meanings .part-of-speech {
+  text-transform: capitalize;
+  font-weight: 700;
+  color: var(--highlight-color);
   font-style: italic;
+  margin-bottom: 20px;
 }
 
 .Meanings .definition {
@@ -17,8 +19,10 @@
   font-weight: 600;
 }
 
-.Meanings .definition .example {
+.Meanings .Example {
+  margin: 10px 0 10px 35px;
   color: var(--secondary-color);
   font-family: var(--secondary-font-family);
   font-style: italic;
+  font-size: 14px;
 }
