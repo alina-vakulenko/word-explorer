@@ -1,9 +1,6 @@
-.Photos .photo-container {
+.container {
   padding: 7px;
   margin: 20px 10px;
   background-color: white;
   border-radius: 5px;
-}
-.Photos .display-photo {
-  border-radius: 4px;
 }

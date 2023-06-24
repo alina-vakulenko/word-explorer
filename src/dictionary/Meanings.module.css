@@ -1,8 +1,9 @@
-.Meanings {
+.meanings {
   text-align: start;
   margin-bottom: 15px;
 }
-.Meanings .part-of-speech {
+
+.partOfSpeech {
   text-transform: capitalize;
   font-weight: 700;
   color: var(--highlight-color);
@@ -10,16 +11,16 @@
   margin-bottom: 20px;
 }
 
-.Meanings .definition {
+.definition {
   font-size: 16px;
 }
 
-.Meanings .index-number {
+.index {
   font-size: 12px;
   font-weight: 600;
 }
 
-.Meanings .Example {
+.example {
   margin: 10px 0 10px 35px;
   color: var(--secondary-color);
   font-family: var(--secondary-font-family);

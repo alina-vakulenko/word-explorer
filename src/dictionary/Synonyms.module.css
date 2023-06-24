@@ -1,20 +1,22 @@
-.Synonyms {
+.synonymsSection {
   text-align: center;
   font-size: 14px;
 }
 
-.Synonyms h6 {
+.title {
   font-weight: 600;
   text-decoration: underline;
   padding: 5px 0;
 }
-.Synonyms .synonyms-block {
+
+.synonyms {
   border: medium var(--highlight-color);
   border-style: double;
   border-radius: 5px;
   padding: 5px;
   font-family: var(--secondary-font-family);
 }
-.Synonyms .synonym {
+
+.synonym {
   font-style: italic;
 }

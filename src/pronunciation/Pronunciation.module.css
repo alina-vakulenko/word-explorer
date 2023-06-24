@@ -1,0 +1,19 @@
+.pronunciation {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.pronunciation i {
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+.active:hover {
+  cursor: pointer;
+  color: brown;
+}
+
+.text {
+  font-size: 16px;
+}
