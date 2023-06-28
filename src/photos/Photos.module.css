@@ -1,6 +1,10 @@
 .container {
-  padding: 7px;
-  margin: 20px 10px;
-  background-color: white;
-  border-radius: 5px;
+  height: 100vh;
+  background-color: var(--background-color-content);
+  position: relative;
+}
+.container::before {
+  content: url("../assets/spring.svg");
+  display: block;
+  transform: translateY(-60%);
 }

@@ -6,9 +6,12 @@ const SearchContext = createContext(null);
 
 const SearchKeywordProvider = ({ children }) => {
   const [keyword, setKeyword] = useState(DEFAULT_SEARCH_WORD);
+  const [phonetics, setPhonetics] = useState([]);
 
   return (
-    <SearchContext.Provider value={{ keyword, setKeyword }}>
+    <SearchContext.Provider
+      value={{ keyword, setKeyword, phonetics, setPhonetics }}
+    >
       {children}
     </SearchContext.Provider>
   );

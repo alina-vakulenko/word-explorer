@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import getPhotos from "../services/photos.service";
 import { useSearchContext } from "../context/searchContext";
+import PhotoSwiper from "./swiper";
 
 import style from "./Photos.module.css";
 
@@ -17,7 +18,7 @@ function Photos() {
 
     const fetchPhotos = async () => {
       try {
-        const response = await getPhotos(keyword, 6);
+        const response = await getPhotos(keyword, 12);
         if (isSubscribed) {
           setPhotos(response.data.photos);
         }
@@ -41,34 +42,11 @@ function Photos() {
   }
 
   return (
-    <section>
+    <section className={style.container}>
       {photosLoading ? (
         <h3>Photos loading</h3>
       ) : (
-        photos.length > 0 && (
-          <div className="row">
-            {photos.map(function (photo, index) {
-              return (
-                <div className="col-6 col-sm-4" key={index}>
-                  <a
-                    href={photo.src.original}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    label="original photo link"
-                  >
-                    <div className={style.container}>
-                      <img
-                        src={photo.src.landscape}
-                        className="img-fluid rounded"
-                        alt={photo.alt}
-                      />
-                    </div>
-                  </a>
-                </div>
-              );
-            })}
-          </div>
-        )
+        photos.length > 0 && <PhotoSwiper photos={photos} />
       )}
     </section>
   );

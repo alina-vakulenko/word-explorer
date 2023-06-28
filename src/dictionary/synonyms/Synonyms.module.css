@@ -1,0 +1,9 @@
+.title {
+  font-weight: 600;
+  padding: 5px 0;
+}
+
+.synonym {
+  font-style: italic;
+  border-radius: 5px;
+}

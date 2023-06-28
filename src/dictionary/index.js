@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-import getDictionaryData from "../services/dictionary.service";
-import Pronunciation from "../pronunciation";
-import Meanings from "./Meanings";
 import { useSearchContext } from "../context/searchContext";
+import getDictionaryData from "../services/dictionary.service";
+import WordCard from "../word-card";
+import Meanings from "./meanings";
 
 function Dictionary() {
   const [resultsLoading, setResultsLoading] = useState(null);
   const [resultsError, setResultsError] = useState(null);
-  const [dictionaryResults, setDictionaryResults] = useState(null);
+  const [dictionaryResults, setDictionaryResults] = useState({});
 
   const { keyword } = useSearchContext();
-  console.log(dictionaryResults);
+
   useEffect(() => {
     let isSubscribed = true;
 
@@ -19,7 +19,12 @@ function Dictionary() {
       try {
         const response = await getDictionaryData(keyword);
         if (isSubscribed) {
-          setDictionaryResults(response.data);
+          setDictionaryResults({
+            [response.data.word]: {
+              pronunciation: response.data.pronunciation,
+              results: response.data.results,
+            },
+          });
         }
       } catch (err) {
         console.log(err);
@@ -41,28 +46,26 @@ function Dictionary() {
   }
 
   return (
-    <section>
-      <h3 className="keyword">• {dictionaryResults?.word || keyword} •</h3>
-
+    <div>
       {resultsLoading && <h3>Results loading</h3>}
-      {dictionaryResults && (
-        <>
-          {dictionaryResults[0]?.phonetics
-            ?.filter((pronunciation) => pronunciation.text)
-            .map((pronunciation, index) => (
-              <div key={index}>
-                <Pronunciation pronunciation={pronunciation} />
-              </div>
-            ))}
 
-          {dictionaryResults[0]?.meanings?.map((meaning, index) => (
-            <div key={index}>
-              <Meanings meaning={meaning} />
-            </div>
-          ))}
+      {Object.entries(dictionaryResults).map(([word, data]) => (
+        <>
+          <section key={word} className="dictionary-content">
+            <WordCard word={word} pronunciation={data.pronunciation} />
+            <ul className="definitions">
+              {data.results?.map((item, index) => (
+                <li key={index}>
+                  <article>
+                    <Meanings meaning={item} />
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </section>
         </>
-      )}
-    </section>
+      ))}
+    </div>
   );
 }
 
