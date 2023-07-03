@@ -1,11 +1,10 @@
 import { useEffect, useCallback } from "react";
-import { useWordleContext } from "../context/wordleContext";
-import Key from "./Key";
-import style from "./Keyboard.module.css";
 
-const keyboardFirstLine = "qwertyuiop";
-const keyboardSecondLine = "asdfghjkl";
-const keyboardThirdLine = "zxcvbnm";
+import { useWordleContext } from "../../context/wordleContext";
+import { keyboardSymbols } from "../settings";
+import Key from "./key";
+
+import style from "./Keyboard.module.css";
 
 const Keyboard = () => {
   const { dispatch } = useWordleContext();
@@ -13,6 +12,7 @@ const Keyboard = () => {
   const handleKeydown = useCallback(
     (e) => {
       if (e.key === "Enter") {
+        e.preventDefault();
         dispatch({ type: "submit" });
       } else if (e.key === "Backspace" || e.key === "Delete") {
         dispatch({ type: "delete" });
@@ -22,6 +22,11 @@ const Keyboard = () => {
     },
     [dispatch]
   );
+
+  const handleMouseClick = (e) => {
+    if (e.target.textContent !== "Enter" && e.target.textContent !== "Delete")
+      dispatch({ type: "selectLetter", payload: e.target.textContent });
+  };
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeydown);
@@ -33,23 +38,19 @@ const Keyboard = () => {
 
   return (
     <div className={style.keyboard}>
-      {keyboardFirstLine.split("").map((keyValue) => (
-        <Key keyValue={keyValue} key={keyValue} />
+      {keyboardSymbols.map((symbol) => (
+        <Key
+          key={symbol.toLowerCase()}
+          value={symbol.toUpperCase()}
+          onMouseClick={handleMouseClick}
+        />
       ))}
-      <div className={style.space}></div>
-      {keyboardSecondLine.split("").map((keyValue) => (
-        <Key keyValue={keyValue} key={keyValue} />
-      ))}
-      <div className={style.space}></div>
       <button
         onClick={() => dispatch({ type: "submit" })}
         className={`${style.key} ${style.large}`}
       >
         Enter
       </button>
-      {keyboardThirdLine.split("").map((keyValue) => (
-        <Key keyValue={keyValue} key={keyValue} />
-      ))}
       <button
         onClick={() => dispatch({ type: "delete" })}
         className={`${style.key} ${style.large}`}

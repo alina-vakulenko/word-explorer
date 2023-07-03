@@ -4,8 +4,8 @@ import Photos from "./photos";
 
 import SearchKeywordProvider from "./context/searchContext";
 import WordleProvider from "./context/wordleContext";
-import Board from "./wordle/Board";
-import Keyboard from "./wordle/Keyboard";
+import WordleGame from "./wordle/WordleGame";
+
 import "./App.css";
 
 function App() {
@@ -18,8 +18,7 @@ function App() {
             {/* <Dictionary /> */}
             {/* <Photos /> */}
             <WordleProvider>
-              <Board />
-              <Keyboard />
+              <WordleGame />
             </WordleProvider>
           </main>
         </SearchKeywordProvider>

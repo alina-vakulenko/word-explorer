@@ -1,14 +1,19 @@
 import { useReducer, useContext, createContext } from "react";
 
-import { initialState, selectLetterReducer } from "../wordle/reducer";
+import { initialState, gameReducer } from "../wordle/reducer";
 
 const WordleContext = createContext(null);
 
 const WordleProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(selectLetterReducer, initialState);
+  const [state, dispatch] = useReducer(gameReducer, initialState);
 
   return (
-    <WordleContext.Provider value={{ gameState: state, dispatch }}>
+    <WordleContext.Provider
+      value={{
+        gameState: state,
+        dispatch,
+      }}
+    >
       {children}
     </WordleContext.Provider>
   );

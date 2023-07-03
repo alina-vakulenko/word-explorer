@@ -1,11 +1,31 @@
 export const WORD_LENGTH = 5;
 export const MAX_ATTEMPTS = 6;
-// export const boardDefault = new Array(5).fill("");
-export const boardDefault = [
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
-  ["", "", "", "", ""],
+
+export const keyboardSymbols = [
+  "q",
+  "w",
+  "e",
+  "r",
+  "t",
+  "y",
+  "u",
+  "i",
+  "o",
+  "p",
+  "a",
+  "s",
+  "d",
+  "f",
+  "g",
+  "h",
+  "j",
+  "k",
+  "l",
+  "z",
+  "x",
+  "c",
+  "v",
+  "b",
+  "n",
+  "m",
 ];

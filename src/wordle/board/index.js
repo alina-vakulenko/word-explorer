@@ -1,17 +1,9 @@
-import { useWordleContext } from "../context/wordleContext";
-import Tile from "./Tile";
+import { useWordleContext } from "../../context/wordleContext";
+
+import Row from "./row";
 
 import style from "./Board.module.css";
 
-const Row = ({ attempt, attemptCount }) => {
-  return (
-    <>
-      {attempt.map((letter, letterPos) => (
-        <Tile value={letter} key={`r${attemptCount}c${letterPos}`} />
-      ))}
-    </>
-  );
-};
 const Board = () => {
   const { gameState } = useWordleContext();
   return (
