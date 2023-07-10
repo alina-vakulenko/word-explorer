@@ -6,10 +6,12 @@ import style from "./Board.module.css";
 
 const Board = () => {
   const { gameState } = useWordleContext();
+  const { board } = gameState;
+
   return (
     <div className={style.board}>
-      {gameState?.board?.map((attempt, attemptCount) => (
-        <Row key={attemptCount} attempt={attempt} attemptCount={attemptCount} />
+      {board.map((tiles, rowNumber) => (
+        <Row key={rowNumber} tiles={tiles} attemptCount={rowNumber} />
       ))}
     </div>
   );

@@ -1,29 +1,33 @@
-import { WORD_LENGTH, MAX_ATTEMPTS } from "./settings";
 import { getInitialBoard } from "./utils/getInitialBoard";
-import { getSubmittedWord } from "./utils/getSubmittedWord";
 import {
   updateBoardState,
-  getBoardWithUpdatedLetter,
+  addLetter,
+  removeLetter,
+  setAttemptStatus,
 } from "./utils/updateBoard";
 
 export const initialState = {
   wordBank: new Set(),
   targetWord: "",
+  submittedWords: [],
   board: [],
   attemptCount: 0,
   letterPos: 0,
   usedLetters: new Map(),
-  gameOver: false,
-  win: false,
 };
 
 export const gameReducer = (state, action) => {
   switch (action.type) {
     case "initGame": {
-      const newBoard = getInitialBoard(MAX_ATTEMPTS, WORD_LENGTH, {
-        letter: "",
-        state: "",
-      });
+      const newBoard = getInitialBoard(
+        action.payload.attemptsLimit,
+        action.payload.wordLength,
+        {
+          letter: "",
+          state: "",
+          status: "",
+        }
+      );
       return {
         ...state,
         board: newBoard,
@@ -32,10 +36,7 @@ export const gameReducer = (state, action) => {
       };
     }
     case "selectLetter": {
-      const maxLengthReached = state.letterPos > WORD_LENGTH - 1;
-      if (maxLengthReached) return state;
-
-      const newBoard = getBoardWithUpdatedLetter(
+      const newBoard = addLetter(
         state.board,
         state.attemptCount,
         state.letterPos,
@@ -45,36 +46,20 @@ export const gameReducer = (state, action) => {
       return { ...state, board: newBoard, letterPos: state.letterPos + 1 };
     }
     case "submit": {
-      const attemptNotValid = state.letterPos !== WORD_LENGTH;
-      if (attemptNotValid) return state;
-
-      const currentWord = getSubmittedWord(state.board, state.attemptCount);
-      const wordExists = state.wordBank.has(currentWord);
-      if (!wordExists) {
-        return state;
-      }
-      // update state of each letter in submitted word for proper color
       const newBoard = updateBoardState(
         state.board,
         state.attemptCount,
-        currentWord,
+        action.payload,
         state.targetWord
       );
 
-      const newState = { ...state, board: newBoard };
-
-      // if submitted word is not recognized, forbid next attempt
-      const isLastAttempt = state.attemptCount === MAX_ATTEMPTS - 1;
-      if (currentWord === state.targetWord) {
-        newState.gameOver = true;
-        newState.win = true;
-      } else if (isLastAttempt) {
-        newState.gameOver = true;
-        newState.win = false;
-      } else {
-        newState.attemptCount = state.attemptCount + 1;
-        newState.letterPos = 0;
-      }
+      const newState = {
+        ...state,
+        board: newBoard,
+        submittedWords: [...state.submittedWords, action.payload],
+        attemptCount: state.attemptCount + 1,
+        letterPos: 0,
+      };
 
       return newState;
     }
@@ -87,13 +72,32 @@ export const gameReducer = (state, action) => {
       };
     }
     case "delete": {
-      const attemptNotStarted = state.letterPos === 0;
-      if (attemptNotStarted || state.gameOver) return state;
-
-      const newBoard = [...state.board];
-      newBoard[state.attemptCount][state.letterPos - 1].letter = "";
+      const newBoard = removeLetter(
+        state.board,
+        state.attemptCount,
+        state.letterPos - 1
+      );
 
       return { ...state, board: newBoard, letterPos: state.letterPos - 1 };
+    }
+    case "animate": {
+      if (action.payload === "correct") {
+        const newBoard = setAttemptStatus(
+          state.board,
+          state.attemptCount - 1,
+          action.payload
+        );
+
+        return { ...state, board: newBoard };
+      } else {
+        const newBoard = setAttemptStatus(
+          state.board,
+          state.attemptCount,
+          action.payload
+        );
+
+        return { ...state, board: newBoard };
+      }
     }
     default:
       return state;

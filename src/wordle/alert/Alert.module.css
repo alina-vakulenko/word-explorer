@@ -1,0 +1,32 @@
+.alertContainer {
+  position: fixed;
+  top: 10vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert {
+  pointer-events: none;
+  padding: 0.75em;
+  border-radius: 0.25em;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+.alert.info {
+  background-color: hsl(204, 7%, 85%);
+}
+.alert.error {
+  background-color: hsl(204, 7%, 85%);
+}
+.alert.success {
+  background-color: hsl(204, 7%, 85%);
+}
+
+.hide {
+  opacity: 0;
+}

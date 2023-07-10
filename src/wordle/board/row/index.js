@@ -1,13 +1,15 @@
 import Tile from "../tile";
 
-const Row = ({ attempt, attemptCount }) => {
+const Row = ({ tiles, rowIndex }) => {
   return (
     <>
-      {attempt.map((letter, letterPos) => (
+      {tiles.map((tile, colIndex) => (
         <Tile
-          position={letterPos}
-          attempt={attemptCount}
-          key={`r${attemptCount}c${letterPos}`}
+          letter={tile.letter}
+          state={tile.state}
+          status={tile.status}
+          order={colIndex}
+          key={`r${rowIndex}c${colIndex}`}
         />
       ))}
     </>

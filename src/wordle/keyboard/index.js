@@ -1,33 +1,11 @@
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 
-import { useWordleContext } from "../../context/wordleContext";
 import { keyboardSymbols } from "../settings";
 import Key from "./key";
 
 import style from "./Keyboard.module.css";
 
-const Keyboard = () => {
-  const { dispatch } = useWordleContext();
-
-  const handleKeydown = useCallback(
-    (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        dispatch({ type: "submit" });
-      } else if (e.key === "Backspace" || e.key === "Delete") {
-        dispatch({ type: "delete" });
-      } else if (e.key.match(/^[a-z]$/i)) {
-        dispatch({ type: "selectLetter", payload: e.key });
-      }
-    },
-    [dispatch]
-  );
-
-  const handleMouseClick = (e) => {
-    if (e.target.textContent !== "Enter" && e.target.textContent !== "Delete")
-      dispatch({ type: "selectLetter", payload: e.target.textContent });
-  };
-
+const Keyboard = ({ handleKeydown, handleMouseClick }) => {
   useEffect(() => {
     document.addEventListener("keydown", handleKeydown);
 
@@ -46,14 +24,15 @@ const Keyboard = () => {
         />
       ))}
       <button
-        onClick={() => dispatch({ type: "submit" })}
+        onClick={handleMouseClick}
         className={`${style.key} ${style.large}`}
       >
         Enter
       </button>
       <button
-        onClick={() => dispatch({ type: "delete" })}
+        onClick={handleMouseClick}
         className={`${style.key} ${style.large}`}
+        data-delete
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

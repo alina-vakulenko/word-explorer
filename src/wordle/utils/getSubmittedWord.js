@@ -1,7 +1,8 @@
 export const getSubmittedWord = (board, attemptCount) => {
-  let submittedWord = "";
-  board[attemptCount].forEach((item) => {
-    submittedWord += item.letter;
-  });
+  const submittedWord = board[attemptCount].reduce(
+    (word, tile) => word + tile.letter,
+    ""
+  );
+
   return submittedWord.toLowerCase();
 };

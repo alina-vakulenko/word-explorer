@@ -8,12 +8,12 @@
   justify-content: center;
   align-items: center;
   user-select: none;
-  transition: transform 250ms linear;
+  transition: transform 200ms linear;
 }
 
-.tile[data-state="active"] {
+/* .tile[data-state="active"] {
   border: 0.1em solid hsl(240, 2%, 23%);
-}
+} */
 
 .tile[data-state="wrong"] {
   border: none;
@@ -30,16 +30,16 @@
   background-color: hsl(115, 29%, 43%);
 }
 
-.tile.shake {
+.tile[data-action="flip"] {
+  transform: rotateX(90deg);
+}
+
+.tile[data-action="shake"] {
   animation: shake 250ms ease-in-out;
 }
 
-.tile.dance {
-  animation: dance 500ms ease-in-out;
-}
-
-.tile.flip {
-  transform: rotateX(90deg);
+.tile[data-action="dance"] {
+  animation: dance 400ms ease-in-out;
 }
 
 @keyframes shake {

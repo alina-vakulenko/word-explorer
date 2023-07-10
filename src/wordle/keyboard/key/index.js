@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+
 import { useWordleContext } from "../../../context/wordleContext";
+
 import style from "../Keyboard.module.css";
 
 const Key = ({ value, onMouseClick }) => {
